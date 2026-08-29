@@ -46,23 +46,25 @@ function LandingRoute() {
       {/* Main Hero Section (Centered) */}
       <main className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center px-6 text-center">
         
-        {/* Main Title: FORGE with ScrambledText interactive pointer effect */}
+        {/* Main Title: FORGE with tuned cinematic smooth ScrambledText */}
         <h1 className="font-display text-7xl font-black tracking-[0.25em] text-white sm:text-8xl md:text-9xl lg:text-[11rem] uppercase select-none leading-none">
           <ScrambledText
-            radius={140}
-            speed={0.4}
+            radius={100}
+            duration={2.5}
+            speed={0.15}
             scrambleChars="xx"
           >
             FORGE
           </ScrambledText>
         </h1>
 
-        {/* Subtitle with ScrambledText interactive pointer effect */}
+        {/* Subtitle with tuned subtle cinematic ScrambledText */}
         <div className="mt-8 max-w-3xl px-4 sm:mt-10">
           <p className="font-sans text-base font-medium tracking-wide text-slate-400 sm:text-lg md:text-xl leading-relaxed select-none">
             <ScrambledText
-              radius={100}
-              speed={0.4}
+              radius={80}
+              duration={2.8}
+              speed={0.12}
               scrambleChars="xx"
             >
               Sovereign Agentic AI Workbench for Confidential Industrial Intelligence
