@@ -1,24 +1,19 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { useAuth } from "@/lib/auth";
+import { AppShell } from "@/components/layout/AppShell";
 import { ChatInterface } from "@/components/chat/ChatInterface";
 import { Toaster } from "@/components/ui/sonner";
-import { useAuth } from "@/lib/auth";
 import { Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/chat")({
   head: () => ({
     meta: [
-      { title: "FORGE — Sovereign AI Workbench" },
+      { title: "AI Workbench — FORGE Sovereign AI" },
       {
         name: "description",
         content:
-          "FORGE is a private, self-hosted AI workbench: it routes each task to the right model, performs multi-step work, verifies results and keeps an audit trail.",
-      },
-      { property: "og:title", content: "FORGE — Sovereign AI Workbench" },
-      {
-        property: "og:description",
-        content:
-          "Private intelligence. Local execution. Full control. A sovereign AI workbench for sensitive industrial and government work.",
+          "FORGE AI Workbench: private, local AI that routes tasks to the right model, processes documents, and keeps a full audit trail.",
       },
     ],
   }),
@@ -28,6 +23,7 @@ export const Route = createFileRoute("/chat")({
 function ChatRoute() {
   const { isAuthenticated, isLoading } = useAuth();
   const navigate = useNavigate();
+  const newChatRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -40,7 +36,7 @@ function ChatRoute() {
       <div className="flex min-h-screen w-full flex-col items-center justify-center bg-background text-foreground">
         <Loader2 className="size-8 animate-spin text-primary" />
         <p className="mt-4 font-mono text-xs text-muted-foreground uppercase tracking-widest">
-          Verifying Sovereign Credentials...
+          Loading Workbench...
         </p>
       </div>
     );
@@ -50,9 +46,15 @@ function ChatRoute() {
     return null;
   }
 
+  const handleNewChat = () => {
+    newChatRef.current?.();
+  };
+
   return (
     <>
-      <ChatInterface />
+      <AppShell onNewChat={handleNewChat}>
+        <ChatInterface onNewChatRef={newChatRef} />
+      </AppShell>
       <Toaster />
     </>
   );

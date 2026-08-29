@@ -24,7 +24,7 @@ function IndexRoute() {
   useEffect(() => {
     if (!isLoading) {
       if (isAuthenticated) {
-        navigate({ to: "/chat" });
+        navigate({ to: "/dashboard" });
       } else {
         navigate({ to: "/signin" });
       }

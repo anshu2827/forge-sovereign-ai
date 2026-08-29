@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Header } from "@/components/layout/Header";
@@ -35,7 +35,7 @@ const SUGGESTIONS = [
   "Calculate the required pipe wall thickness for 12 bar design pressure.",
 ];
 
-export function ChatInterface() {
+export function ChatInterface({ onNewChatRef }: { onNewChatRef?: React.MutableRefObject<(() => void) | null> }) {
   const [conversations, setConversations] =
     useState<Conversation[]>(CONVERSATIONS);
   const [activeId, setActiveId] = useState(CONVERSATIONS[0]!.id);
@@ -43,7 +43,7 @@ export function ChatInterface() {
   const [effort, setEffort] = useState<EffortLevel>("High");
   const [attachments, setAttachments] = useState<Attachment[]>([]);
   const [busy, setBusy] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [chatSidebarOpen, setChatSidebarOpen] = useState(false);
 
   const timers = useRef<number[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -170,35 +170,45 @@ export function ChatInterface() {
     ]);
     setActiveId(id);
     setAttachments([]);
-    setSidebarOpen(false);
+    setChatSidebarOpen(false);
   };
 
-  const sidebar = (
+  // Expose newChat to parent (for AppShell "New Chat" button)
+  useEffect(() => {
+    if (onNewChatRef) {
+      onNewChatRef.current = newChat;
+    }
+  });
+
+  const conversationSidebar = (
     <Sidebar
       conversations={conversations}
       activeId={activeId}
       onSelect={(id) => {
         setActiveId(id);
-        setSidebarOpen(false);
+        setChatSidebarOpen(false);
       }}
       onNewChat={newChat}
     />
   );
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-background">
-      <div className="hidden w-[272px] shrink-0 lg:block">{sidebar}</div>
+    <div className="flex h-full w-full overflow-hidden bg-background">
+      {/* Conversation history sidebar — desktop */}
+      <div className="hidden w-[220px] shrink-0 lg:block">{conversationSidebar}</div>
 
-      <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
-        <SheetContent side="left" className="w-[280px] border-border p-0">
-          {sidebar}
+      {/* Conversation history sidebar — mobile sheet */}
+      <Sheet open={chatSidebarOpen} onOpenChange={setChatSidebarOpen}>
+        <SheetContent side="left" className="w-[240px] border-border p-0">
+          {conversationSidebar}
         </SheetContent>
       </Sheet>
 
+      {/* Main chat area */}
       <div className="flex min-w-0 flex-1 flex-col">
         <Header
           model={getModel(model)}
-          onOpenSidebar={() => setSidebarOpen(true)}
+          onOpenSidebar={() => setChatSidebarOpen(true)}
         />
 
         <div ref={scrollRef} className="flex-1 overflow-y-auto">
@@ -270,3 +280,4 @@ function EmptyState({ onPick }: { onPick: (text: string) => void }) {
     </div>
   );
 }
+

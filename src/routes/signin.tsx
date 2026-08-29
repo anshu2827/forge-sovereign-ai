@@ -28,7 +28,7 @@ function SignInPage() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate({ to: "/chat" });
+      navigate({ to: "/dashboard" });
     }
   }, [isAuthenticated, navigate]);
 
@@ -42,7 +42,7 @@ function SignInPage() {
         toast.success("Authentication successful", {
           description: "Entering secure FORGE Sovereign AI Workbench...",
         });
-        navigate({ to: "/chat" });
+        navigate({ to: "/dashboard" });
       } else {
         setErrorMessage("Authentication failed. Please verify credentials.");
       }

@@ -10,12 +10,24 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ActivityLogsRouteImport } from './routes/activity-logs'
 import { Route as ChatRouteImport } from './routes/chat'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as DocumentsRouteImport } from './routes/documents'
+import { Route as GeneratedFilesRouteImport } from './routes/generated-files'
+import { Route as KnowledgeBaseRouteImport } from './routes/knowledge-base'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SigninRouteImport } from './routes/signin'
+import { Route as TasksRouteImport } from './routes/tasks'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActivityLogsRoute = ActivityLogsRouteImport.update({
+  id: '/activity-logs',
+  path: '/activity-logs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChatRoute = ChatRouteImport.update({
@@ -23,40 +35,129 @@ const ChatRoute = ChatRouteImport.update({
   path: '/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentsRoute = DocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GeneratedFilesRoute = GeneratedFilesRouteImport.update({
+  id: '/generated-files',
+  path: '/generated-files',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KnowledgeBaseRoute = KnowledgeBaseRouteImport.update({
+  id: '/knowledge-base',
+  path: '/knowledge-base',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SigninRoute = SigninRouteImport.update({
   id: '/signin',
   path: '/signin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TasksRoute = TasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/activity-logs': typeof ActivityLogsRoute
   '/chat': typeof ChatRoute
+  '/dashboard': typeof DashboardRoute
+  '/documents': typeof DocumentsRoute
+  '/generated-files': typeof GeneratedFilesRoute
+  '/knowledge-base': typeof KnowledgeBaseRoute
+  '/settings': typeof SettingsRoute
   '/signin': typeof SigninRoute
+  '/tasks': typeof TasksRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/activity-logs': typeof ActivityLogsRoute
   '/chat': typeof ChatRoute
+  '/dashboard': typeof DashboardRoute
+  '/documents': typeof DocumentsRoute
+  '/generated-files': typeof GeneratedFilesRoute
+  '/knowledge-base': typeof KnowledgeBaseRoute
+  '/settings': typeof SettingsRoute
   '/signin': typeof SigninRoute
+  '/tasks': typeof TasksRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/activity-logs': typeof ActivityLogsRoute
   '/chat': typeof ChatRoute
+  '/dashboard': typeof DashboardRoute
+  '/documents': typeof DocumentsRoute
+  '/generated-files': typeof GeneratedFilesRoute
+  '/knowledge-base': typeof KnowledgeBaseRoute
+  '/settings': typeof SettingsRoute
   '/signin': typeof SigninRoute
+  '/tasks': typeof TasksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/chat' | '/signin'
+  fullPaths:
+    | '/'
+    | '/activity-logs'
+    | '/chat'
+    | '/dashboard'
+    | '/documents'
+    | '/generated-files'
+    | '/knowledge-base'
+    | '/settings'
+    | '/signin'
+    | '/tasks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/chat' | '/signin'
-  id: '__root__' | '/' | '/chat' | '/signin'
+  to:
+    | '/'
+    | '/activity-logs'
+    | '/chat'
+    | '/dashboard'
+    | '/documents'
+    | '/generated-files'
+    | '/knowledge-base'
+    | '/settings'
+    | '/signin'
+    | '/tasks'
+  id:
+    | '__root__'
+    | '/'
+    | '/activity-logs'
+    | '/chat'
+    | '/dashboard'
+    | '/documents'
+    | '/generated-files'
+    | '/knowledge-base'
+    | '/settings'
+    | '/signin'
+    | '/tasks'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ActivityLogsRoute: typeof ActivityLogsRoute
   ChatRoute: typeof ChatRoute
+  DashboardRoute: typeof DashboardRoute
+  DocumentsRoute: typeof DocumentsRoute
+  GeneratedFilesRoute: typeof GeneratedFilesRoute
+  KnowledgeBaseRoute: typeof KnowledgeBaseRoute
+  SettingsRoute: typeof SettingsRoute
   SigninRoute: typeof SigninRoute
+  TasksRoute: typeof TasksRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -68,11 +169,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/activity-logs': {
+      id: '/activity-logs'
+      path: '/activity-logs'
+      fullPath: '/activity-logs'
+      preLoaderRoute: typeof ActivityLogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/chat': {
       id: '/chat'
       path: '/chat'
       fullPath: '/chat'
       preLoaderRoute: typeof ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents': {
+      id: '/documents'
+      path: '/documents'
+      fullPath: '/documents'
+      preLoaderRoute: typeof DocumentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/generated-files': {
+      id: '/generated-files'
+      path: '/generated-files'
+      fullPath: '/generated-files'
+      preLoaderRoute: typeof GeneratedFilesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/knowledge-base': {
+      id: '/knowledge-base'
+      path: '/knowledge-base'
+      fullPath: '/knowledge-base'
+      preLoaderRoute: typeof KnowledgeBaseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/signin': {
@@ -82,13 +225,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SigninRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tasks': {
+      id: '/tasks'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof TasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ActivityLogsRoute: ActivityLogsRoute,
   ChatRoute: ChatRoute,
+  DashboardRoute: DashboardRoute,
+  DocumentsRoute: DocumentsRoute,
+  GeneratedFilesRoute: GeneratedFilesRoute,
+  KnowledgeBaseRoute: KnowledgeBaseRoute,
+  SettingsRoute: SettingsRoute,
   SigninRoute: SigninRoute,
+  TasksRoute: TasksRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

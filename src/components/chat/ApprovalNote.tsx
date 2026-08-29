@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Check, Download, FileSignature, Loader2 } from "lucide-react";
+import { Check, Download, FileSignature, Loader2, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
+import { Link } from "@tanstack/react-router";
 
 interface ApprovalNoteProps {
   label: string;
@@ -33,18 +34,29 @@ export function ApprovalNote({ label, fileName }: ApprovalNoteProps) {
 
   if (state === "ready") {
     return (
-      <div className="animate-fade-up flex flex-wrap items-center gap-3 rounded-xl border border-success/30 bg-success/8 px-3 py-2.5">
-        <Check className="size-4 text-success" />
-        <span className="flex-1 text-[13px] text-foreground">
-          {fileName} ready
-        </span>
-        <button
-          onClick={download}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-border-strong bg-surface-2 px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:border-primary/40"
-        >
-          <Download className="size-3.5 text-primary" />
-          Download
-        </button>
+      <div className="animate-fade-up space-y-2">
+        <div className="flex flex-wrap items-center gap-3 rounded-xl border border-success/30 bg-success/8 px-3 py-2.5">
+          <Check className="size-4 text-success" />
+          <span className="flex-1 text-[13px] text-foreground">
+            {fileName} ready
+          </span>
+          <button
+            onClick={download}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-border-strong bg-surface-2 px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:border-primary/40"
+          >
+            <Download className="size-3.5 text-primary" />
+            Download
+          </button>
+        </div>
+        <div className="flex items-center justify-end">
+          <Link
+            to="/generated-files"
+            className="inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-primary transition-colors"
+          >
+            <ExternalLink className="size-3" />
+            Open Generated Files
+          </Link>
+        </div>
       </div>
     );
   }
