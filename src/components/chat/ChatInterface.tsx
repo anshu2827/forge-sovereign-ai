@@ -38,7 +38,7 @@ const SUGGESTIONS = [
 export function ChatInterface() {
   const [conversations, setConversations] =
     useState<Conversation[]>(CONVERSATIONS);
-  const [activeId, setActiveId] = useState(CONVERSATIONS[0].id);
+  const [activeId, setActiveId] = useState(CONVERSATIONS[0]!.id);
   const [model, setModel] = useState<ModelId>("forge-document");
   const [effort, setEffort] = useState<EffortLevel>("High");
   const [attachments, setAttachments] = useState<Attachment[]>([]);
@@ -49,7 +49,7 @@ export function ChatInterface() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const active =
-    conversations.find((c) => c.id === activeId) ?? conversations[0];
+    conversations.find((c) => c.id === activeId) ?? conversations[0]!;
 
   useEffect(() => {
     return () => timers.current.forEach((t) => window.clearTimeout(t));

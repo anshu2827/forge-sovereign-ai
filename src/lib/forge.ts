@@ -36,7 +36,7 @@ export const FORGE_MODELS: ForgeModel[] = [
 ];
 
 export const getModel = (id: ModelId): ForgeModel =>
-  FORGE_MODELS.find((m) => m.id === id) ?? FORGE_MODELS[2];
+  FORGE_MODELS.find((m) => m.id === id) ?? FORGE_MODELS[2]!;
 
 export type EffortLevel = "Low" | "Medium" | "High" | "Max";
 export const EFFORT_LEVELS: EffortLevel[] = ["Low", "Medium", "High", "Max"];
@@ -75,7 +75,7 @@ export interface AssistantAnswer {
   findings: { title: string; detail: string; severity: string }[];
   sources: SourceRef[];
   verification: string;
-  deliverable?: { label: string; fileName: string };
+  deliverable?: { label: string; fileName: string } | undefined;
 }
 
 export interface AuditEntry {
@@ -87,13 +87,13 @@ export interface ChatMessageData {
   id: string;
   role: "user" | "assistant";
   content: string;
-  attachments?: Attachment[];
-  routing?: RoutingResult;
-  steps?: ActivityStep[];
-  activityDone?: boolean;
-  answer?: AssistantAnswer;
-  audit?: AuditEntry[];
-  effort?: EffortLevel;
+  attachments?: Attachment[] | undefined;
+  routing?: RoutingResult | undefined;
+  steps?: ActivityStep[] | undefined;
+  activityDone?: boolean | undefined;
+  answer?: AssistantAnswer | undefined;
+  audit?: AuditEntry[] | undefined;
+  effort?: EffortLevel | undefined;
 }
 
 export interface Conversation {
