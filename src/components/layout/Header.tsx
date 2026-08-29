@@ -1,5 +1,7 @@
-import { PanelLeft, Settings2 } from "lucide-react";
+import { PanelLeft, LogOut, User } from "lucide-react";
 import type { ForgeModel } from "@/lib/forge";
+import { useAuth } from "@/lib/auth";
+import { useNavigate } from "@tanstack/react-router";
 
 interface HeaderProps {
   model: ForgeModel;
@@ -7,6 +9,14 @@ interface HeaderProps {
 }
 
 export function Header({ model, onOpenSidebar }: HeaderProps) {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate({ to: "/signin" });
+  };
+
   return (
     <header className="flex items-center gap-3 border-b border-border bg-background/80 px-4 py-3 backdrop-blur md:px-6">
       <button
@@ -40,11 +50,24 @@ export function Header({ model, onOpenSidebar }: HeaderProps) {
           <span className="size-1.5 rounded-full bg-success animate-status-dot" />
           Local
         </span>
+
+        {user && (
+          <div className="flex items-center gap-1.5 rounded-lg border border-border bg-surface/80 px-2.5 py-1 text-xs text-foreground/90">
+            <User className="size-3.5 text-primary" />
+            <span className="hidden max-w-[120px] truncate text-[11px] font-medium sm:inline">
+              {user.name}
+            </span>
+          </div>
+        )}
+
         <button
-          className="grid size-8 place-items-center rounded-md border border-border text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
-          aria-label="Settings"
+          onClick={handleLogout}
+          className="flex items-center gap-1.5 rounded-md border border-border bg-surface px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
+          aria-label="Sign Out"
+          title="Sign out of FORGE session"
         >
-          <Settings2 className="size-4" />
+          <LogOut className="size-3.5" />
+          <span className="hidden sm:inline">Sign Out</span>
         </button>
       </div>
     </header>
